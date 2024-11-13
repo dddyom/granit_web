@@ -21,4 +21,22 @@ export class BufferApi {
     }
     return response.data;
   }
+
+  async datToJpg(file: File): Promise<{ status: boolean; fileUrl?: string }> {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await this.api.post("/dat/to_jpg", formData, {
+      responseType: "blob",
+    });
+
+    if (response.status !== 200) {
+      return { status: false };
+    }
+
+    const blob = new Blob([response.data], { type: "image/jpeg" });
+    const fileUrl = window.URL.createObjectURL(blob);
+
+    return { status: true, fileUrl };
+  }
 }

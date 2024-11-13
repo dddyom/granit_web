@@ -1,6 +1,11 @@
 import React from "react";
 import { Header } from "antd/es/layout/layout";
-import { IsRadialMatrix, ListenerToggler, MultiBufferHandler } from "..";
+import {
+  DatToJpg,
+  IsRadialMatrix,
+  ListenerToggler,
+  MultiBufferHandler,
+} from "..";
 import Swal from "sweetalert2";
 import api from "../../api";
 import { useDispatch } from "react-redux";
@@ -88,6 +93,19 @@ export const NavBar = ({ setUseRadialMatrix }: any) => {
           const icoPoints = await searchTargets(files);
           if (icoPoints && icoPoints.length > 0) {
             dispatch(setIcoPoints(icoPoints));
+          }
+        }}
+      />
+      <DatToJpg
+        onFileLoad={async (file: File) => {
+          const result = await api.datToJpg(file);
+          if (result.status && result.fileUrl) {
+            const link = document.createElement("a");
+            link.href = result.fileUrl;
+            link.download = file.name.split(".")[0] + ".jpg";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
           }
         }}
       />

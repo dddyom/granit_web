@@ -1,6 +1,6 @@
 export { Matrix } from "./Matrix/Matrix";
 export { RadialMatrix } from "./RadialMatrix/RadialMatrix";
-export { SingleBufferHandler } from "./SingleBufferHandler/SingleBufferHandler";
+export { DatToJpg } from "./DatToJpg/DatToJpg";
 export { MultiBufferHandler } from "./MultiBufferHandler/MultiBufferHandler";
 export { IsRadialMatrix } from "./IsRadialMatrix/IsRadialMatrix";
 export { LogWindow } from "./LogWindow/LogWindow";

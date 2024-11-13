@@ -27,6 +27,9 @@ class Api {
   ): Promise<{ status: boolean; ico_targets?: ICOPoint[] }> {
     return this.buffer.searchTargets(files);
   }
+  async datToJpg(file: File): Promise<{ status: boolean; fileUrl?: string }> {
+    return this.buffer.datToJpg(file);
+  }
 }
 
 const api = new Api(import.meta.env.VITE_API_URL);
