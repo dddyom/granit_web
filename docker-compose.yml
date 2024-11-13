@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "9200:9200"
+    volumes:
+      - /home/d/code/granit/weights:/app/NEURAL_WEIGHTS
+      - /home/d/code/granit/listener:/app/NEURAL_BUFFERS:rw
+    depends_on:
+      - frontend
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "9100:9100"

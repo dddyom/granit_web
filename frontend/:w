@@ -1,0 +1,90 @@
+import { useDispatch, useSelector } from "react-redux";
+import { ICOPoint } from "../../types";
+import {
+  hideIcoPoint,
+  offIcoPointHover,
+  onIcoPointHover,
+  showIcoPoint,
+} from "../../store/reducers";
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+
+export const ICOPointLogs = () => {
+  const dispatch = useDispatch();
+  const points = useSelector(
+    (state: { icoPoints: ICOPoint[] }) => state.icoPoints,
+  );
+  const groupedPoints = points.reduce<{ [key: string]: ICOPoint[] }>(
+    (acc, point) => {
+      if (!acc[point.turn_number]) {
+        acc[point.turn_number] = [];
+      }
+      acc[point.turn_number].push(point);
+      return acc;
+    },
+    {},
+  );
+  return (
+    <div
+      style={{
+        flex: 1,
+        border: "1px solid #fff",
+        backgroundColor: "#000",
+        borderRadius: "5px",
+        padding: "10px",
+        overflowY: "auto",
+      }}
+    >
+      {Object.keys(groupedPoints).map((bufName) => (
+        <div key={bufName} style={{ marginBottom: "20px" }}>
+          <h4>
+            Номер оборота - {bufName}
+            <Button
+              style={{ float: "right" }}
+              icon={
+                groupedPoints[bufName].every((point) => point.hidden) ? (
+                  <EyeInvisibleOutlined />
+                ) : (
+                  <EyeOutlined />
+                )
+              }
+              onClick={() => {
+                if (groupedPoints[bufName].every((point) => point.hidden)) {
+                  groupedPoints[bufName].forEach((point) =>
+                    dispatch(showIcoPoint(point)),
+                  );
+                } else {
+                  groupedPoints[bufName].forEach((point) =>
+                    dispatch(hideIcoPoint(point)),
+                  );
+                }
+              }}
+            />
+          </h4>
+          <ul style={{ listStyleType: "none", padding: 0 }}>
+            {groupedPoints[bufName].map((point) => (
+              <li
+                key={point.id}
+                style={{
+                  marginBottom: "10px",
+                  backgroundColor: point.hovered ? "lightgray" : "transparent",
+                  fontWeight: point.hovered ? "bold" : "normal",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  if (point.hovered) {
+                    dispatch(offIcoPointHover(point));
+                  } else {
+                    dispatch(onIcoPointHover(point));
+                  }
+                }}
+              >
+                {point.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+};
