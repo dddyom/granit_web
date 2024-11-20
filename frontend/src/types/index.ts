@@ -1,1 +1,1 @@
-export type { Point, ICOPoint, TargetType } from "./point";
+export type { Point, ICOPoint } from "./point";
