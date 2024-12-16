@@ -123,26 +123,26 @@ export const RadialMatrix: React.FC<Props> = ({ points, ICOPoints }) => {
               }
             }}
           />
-          <Text
-            x={x + 10}
-            y={y - 5}
-            text={`${icoPoint.label} ${icoPoint.label}`}
-            fontSize={12}
-            fill={
-              icoPoint.hovered
-                ? "yellow"
-                : icoPoint.type === "P"
-                  ? "lightgreen"
-                  : "green"
-            }
-            onClick={() => {
-              if (icoPoint.hovered) {
-                dispatch(offIcoPointHover(icoPoint));
-              } else {
-                dispatch(onIcoPointHover(icoPoint));
-              }
-            }}
-          />
+          {/* <Text */}
+          {/*   x={x + 10} */}
+          {/*   y={y - 5} */}
+          {/*   text={`${icoPoint.label} ${icoPoint.label}`} */}
+          {/*   fontSize={12} */}
+          {/*   fill={ */}
+          {/*     icoPoint.hovered */}
+          {/*       ? "yellow" */}
+          {/*       : icoPoint.type === "P" */}
+          {/*         ? "lightgreen" */}
+          {/*         : "green" */}
+          {/*   } */}
+          {/*   onClick={() => { */}
+          {/*     if (icoPoint.hovered) { */}
+          {/*       dispatch(offIcoPointHover(icoPoint)); */}
+          {/*     } else { */}
+          {/*       dispatch(onIcoPointHover(icoPoint)); */}
+          {/*     } */}
+          {/*   }} */}
+          {/* /> */}
         </React.Fragment>
       );
     });
@@ -186,20 +186,20 @@ export const RadialMatrix: React.FC<Props> = ({ points, ICOPoints }) => {
               }
             }}
           />
-          <Text
-            x={x + 10}
-            y={y - 5}
-            text={`${point.label} (${point.buf_name})`}
-            fontSize={12}
-            fill={point.hovered ? "yellow" : "red"}
-            onClick={() => {
-              if (point.hovered) {
-                dispatch(offPointHover(point));
-              } else {
-                dispatch(onPointHover(point));
-              }
-            }}
-          />
+          {/* <Text */}
+          {/*   x={x + 10} */}
+          {/*   y={y - 5} */}
+          {/*   text={`${point.label} (${point.buf_name})`} */}
+          {/*   fontSize={12} */}
+          {/*   fill={point.hovered ? "yellow" : "red"} */}
+          {/*   onClick={() => { */}
+          {/*     if (point.hovered) { */}
+          {/*       dispatch(offPointHover(point)); */}
+          {/*     } else { */}
+          {/*       dispatch(onPointHover(point)); */}
+          {/*     } */}
+          {/*   }} */}
+          {/* /> */}
         </React.Fragment>
       );
     });

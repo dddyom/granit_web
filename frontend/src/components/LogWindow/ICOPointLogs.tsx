@@ -47,12 +47,10 @@ export const ICOPointLogs: React.FC<ICOPointLogsProps> = ({
     };
   }, [syncScroll]);
 
-  // Получаем ключи и сортируем их
   const sortedBufNames = Object.keys(groupedPoints).sort((a, b) => {
     const aInMaxCounts = a in maxPointsCounts;
     const bInMaxCounts = b in maxPointsCounts;
 
-    // Сначала идут те, что есть в maxPointsCounts, затем остальные
     if (aInMaxCounts && !bInMaxCounts) {
       return -1;
     } else if (!aInMaxCounts && bInMaxCounts) {
@@ -61,6 +59,13 @@ export const ICOPointLogs: React.FC<ICOPointLogsProps> = ({
       return 0;
     }
   });
+  const toggleAllVisibility = () => {
+    if (points.every((point) => point.hidden)) {
+      points.forEach((point) => dispatch(showIcoPoint(point)));
+    } else {
+      points.forEach((point) => dispatch(hideIcoPoint(point)));
+    }
+  };
 
   return (
     <div
@@ -71,7 +76,20 @@ export const ICOPointLogs: React.FC<ICOPointLogsProps> = ({
         overflowY: "hidden",
       }}
     >
-      <h3>Цели ИКО</h3>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h3 style={{ lineHeight: "48px" }}>Цели ИКО</h3>
+        <Button
+          style={{ margin: "8px" }}
+          icon={
+            points.every((point) => point.hidden) ? (
+              <EyeInvisibleOutlined />
+            ) : (
+              <EyeOutlined />
+            )
+          }
+          onClick={toggleAllVisibility}
+        />
+      </div>
       {sortedBufNames.map((bufName, index) => {
         const isHidden = groupedPoints[bufName].every((point) => point.hidden);
         return (

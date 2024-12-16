@@ -13,6 +13,6 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction --
 COPY . .
 
 EXPOSE 9200
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
-# Запускаем приложение с помощью uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9200"]

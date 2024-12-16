@@ -55,6 +55,14 @@ export const PointLogs: React.FC<PointLogsProps> = ({
     return 0;
   });
 
+  const toggleAllVisibility = () => {
+    if (points.every((point) => point.hidden)) {
+      points.forEach((point) => dispatch(showPoint(point)));
+    } else {
+      points.forEach((point) => dispatch(hidePoint(point)));
+    }
+  };
+
   return (
     <div
       ref={containerRef}
@@ -64,7 +72,20 @@ export const PointLogs: React.FC<PointLogsProps> = ({
         overflowY: "auto",
       }}
     >
-      <h3>Цели нейросети</h3>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h3 style={{ lineHeight: "48px" }}>Цели нейросети</h3>
+        <Button
+          style={{ margin: "8px" }}
+          icon={
+            points.every((point) => point.hidden) ? (
+              <EyeInvisibleOutlined />
+            ) : (
+              <EyeOutlined />
+            )
+          }
+          onClick={toggleAllVisibility}
+        />
+      </div>
       {sortedBufNames.map((bufName, index) => {
         const isHidden = groupedPoints[bufName].every((point) => point.hidden);
         return (
